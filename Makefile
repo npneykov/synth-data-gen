@@ -27,7 +27,7 @@ build:
 
 clean:
 	$(PY) - <<'PY'
-import shutil, pathlib, sys, os
-for d in ("build","dist","__pycache__",".pytest_cache"):
-    shutil.rmtree(d, ignore_errors=True)
-PY
+	import shutil, pathlib, sys, os
+	for d in ("build","dist","__pycache__",".pytest_cache"):
+	shutil.rmtree(d, ignore_errors=True)
+	PY
