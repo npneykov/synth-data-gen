@@ -1,0 +1,111 @@
+──────────────────────────────────────────────────────────────────────────────
+                        END-USER LICENSE AGREEMENT
+                                   (EULA)
+                       Version 1.0 — Effective ▸01 Jul 2025◂
+──────────────────────────────────────────────────────────────────────────────
+IMPORTANT:  READ THIS AGREEMENT CAREFULLY BEFORE USING THE SOFTWARE.  BY
+DOWNLOADING, INSTALLING, OR RUNNING THE SOFTWARE, YOU AGREE TO BE BOUND BY
+THE TERMS OF THIS AGREEMENT.  IF YOU DO NOT ACCEPT THESE TERMS, DO NOT
+DOWNLOAD, INSTALL, OR USE THE SOFTWARE.
+
+This End-User License Agreement (“Agreement”) is a legal contract between
+▸Nikola Neykov◂ (“Licensor”) and the individual or legal entity
+(“Licensee”, “you”) that downloaded, installed, or otherwise uses the
+computer program identified below.
+
+“Software” means the executable program file(s) and all accompanying
+documentation, data files, and updates distributed under this Agreement
+under the name **“Synthetic Test-Data Generator”**.
+
+──────────────────────────────────────────────────────────────────────────────
+1.  GRANT OF LICENSE
+──────────────────────────────────────────────────────────────────────────────
+1.1  **Personal/Business Use.**  Subject to your compliance with this
+     Agreement and the payment of applicable fees, Licensor grants you a
+     non-exclusive, non-transferable, non-sublicensable license to install
+     and use one copy of the Software on a single computer owned or
+     controlled by you, solely for internal test-data generation purposes.
+
+1.2  **Licence Key.**  Operation of the Software requires a valid licence
+     key issued by Licensor (or its authorised reseller ▸Gumroad, Inc.◂).
+     You agree not to circumvent or disable any licence-key mechanism.
+
+──────────────────────────────────────────────────────────────────────────────
+2.  RESTRICTIONS
+──────────────────────────────────────────────────────────────────────────────
+You shall NOT:
+a) copy, distribute, or make the Software available to any third party;
+b) sell, rent, lease, lend, or host the Software as a service;
+c) reverse-engineer, decompile, disassemble, or otherwise attempt to derive
+   the Software’s source code, except to the extent such activity is
+   expressly permitted by mandatory law;
+d) modify, translate, or create derivative works of the Software;
+e) remove, alter, or obscure any proprietary notices on or in the Software;
+f) use the Software to develop a competing product or service.
+
+──────────────────────────────────────────────────────────────────────────────
+3.  OWNERSHIP
+──────────────────────────────────────────────────────────────────────────────
+The Software is licensed, not sold.  Licensor and its suppliers retain all
+right, title, and interest, including all intellectual-property rights, in
+and to the Software.  No rights are granted except as expressly set forth
+in this Agreement.
+
+──────────────────────────────────────────────────────────────────────────────
+4.  UPDATES & UPGRADES
+──────────────────────────────────────────────────────────────────────────────
+4.1  **Minor Updates (v1.x).**  Provided free of additional charge during
+     the first twelve (12) months after your purchase.
+
+4.2  **Major Upgrades (v2.0 or later).**  May be subject to additional fees
+     or a new licence.  Licensor will announce upgrade pricing in advance.
+
+──────────────────────────────────────────────────────────────────────────────
+5.  WARRANTY DISCLAIMER; LIMITATION OF LIABILITY
+──────────────────────────────────────────────────────────────────────────────
+5.1  **AS-IS.**  The Software is provided “AS IS” and “AS AVAILABLE”, with
+     all faults.  Licensor expressly disclaims all warranties—express,
+     implied, or statutory—including any implied warranties of merchant-
+     ability, fitness for a particular purpose, and non-infringement.
+
+5.2  **No Liability for Damages.**  To the maximum extent permitted by
+     law, in no event shall Licensor be liable for any indirect, incidental,
+     special, consequential, or punitive damages, or for any loss of
+     profits, data, or business, arising out of or relating to this
+     Agreement or the use of the Software, even if advised of the
+     possibility thereof.
+
+5.3  **Cap on Liability.**  Licensor’s total cumulative liability shall not
+     exceed the licence fees actually paid by you for the Software.
+
+──────────────────────────────────────────────────────────────────────────────
+6.  TERMINATION
+──────────────────────────────────────────────────────────────────────────────
+This Agreement is effective until terminated.  It will automatically
+terminate without notice if you breach any term herein.  Upon termination,
+you must cease all use of the Software and destroy all copies.
+
+──────────────────────────────────────────────────────────────────────────────
+7.  GOVERNING LAW; DISPUTE RESOLUTION
+──────────────────────────────────────────────────────────────────────────────
+This Agreement shall be governed by the laws of the Republic of Bulgaria
+and the laws of the European Union applicable therein, without regard to
+conflict-of-law principles.  Any dispute, controversy, or claim arising out
+of or relating to this Agreement shall be submitted to the exclusive
+jurisdiction of the competent courts of Sofia, Bulgaria.
+
+──────────────────────────────────────────────────────────────────────────────
+8.  GENERAL
+──────────────────────────────────────────────────────────────────────────────
+8.1  **Entire Agreement.**  This Agreement constitutes the entire agreement
+     between the parties and supersedes any prior understandings.
+
+8.2  **Severability.**  If any provision is held invalid, the remaining
+     provisions shall continue in full force and effect.
+
+8.3  **No Waiver.**  Failure to enforce any provision shall not constitute
+     a waiver of future enforcement of that or any other provision.
+
+──────────────────────────────────────────────────────────────────────────────
+© 2025 ▸Nikola Neykov◂.  All rights reserved.
+──────────────────────────────────────────────────────────────────────────────
