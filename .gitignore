@@ -1,0 +1,68 @@
+# ─────────────────────────────
+#  Python / Poetry / PyInstaller
+# ─────────────────────────────
+# Byte-code & caches
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual envs
+.venv/
+
+# Wheels / build / PyInstaller artefacts
+build/
+dist/
+*.spec           # PyInstaller spec file
+*.manifest
+*.dll
+*.exe
+
+# Logs
+*.log
+
+# ─────────────────────────────
+#  IDEs & Editors
+# ─────────────────────────────
+# VS Code – keep workspace config we committed, ignore everything else
+.vscode/*            # ignore all …
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# JetBrains / others
+.idea/
+*.code-workspace     # personal VS Code workspaces
+
+# ─────────────────────────────
+#  OS cruft
+# ─────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─────────────────────────────
+#  Secrets / keys
+# ─────────────────────────────
+*.env
+*.pem
+*.key
+private.asc          # the GPG private key you’ll add to GH secrets
+GPG_PRIVATE_*
+
+# ─────────────────────────────
+#  Containers & tooling
+# ─────────────────────────────
+# Dev-container build cache
+.devcontainer/.tmp-docker
+docker-compose.override.yml
+
+# ─────────────────────────────
+#  Archives
+# ─────────────────────────────
+*.gz
+*.zip
+*.tar
+*.tgz
