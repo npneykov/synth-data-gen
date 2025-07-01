@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug synthgen",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/synth/cli.py",
+            "args": [
+                "--db",
+                "postgresql://user:pass@localhost:5432/mydb",
+                "--rows",
+                "100"
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "SYNTH_KEY": "DEV-0000-0000"
+            }
+        }
+    ]
+}

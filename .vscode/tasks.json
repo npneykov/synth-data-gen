@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "⚙️ Init env",
+            "type": "shell",
+            "command": "make init",
+            "problemMatcher": []
+        },
+        {
+            "label": "🧪 Run tests",
+            "type": "shell",
+            "command": "make test",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "🏗 Build binary",
+            "type": "shell",
+            "command": "make build",
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}
