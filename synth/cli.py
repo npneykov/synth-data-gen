@@ -22,11 +22,11 @@ def generate(
     rows: int = typer.Option(
         1000, '--rows', '-r', help='Approximate number of rows per table.'
     ),
-    seed: int = typer.Option(
-        42, '--seed', '-s', help='Random seed for reproducibility.'
+    seed: int | None = typer.Option(
+        None, '--seed', '-s', help='Random seed for reproducibility.'
     ),
     out_file: str = typer.Option(
-        'dumpl.sql',
+        'dump.sql',
         '--out',
         '-o',
         help='Path to write the generated SQL dump file ( use `-` for stdout).',
