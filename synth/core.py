@@ -1,16 +1,46 @@
 import logging
+import random
 from collections import defaultdict, deque
 
 from sqlalchemy import MetaData, create_engine
 
 
-def generate_dump(db_url, rows, seed, out_file, verbose):
-    if verbose:
-        logging.basicConfig(level=logging.INFO)
-    logging.info('Reflecting schema from %s', db_url)
+def generate_dump(
+    db_url: str, rows: int, seed: int | None, out_file: str, verbose: bool
+):
+    """
+    Connects to the given DB URL, reflects schema, orders tables,
+    and (eventually) generates a synthetic SQL dump.
+    """
+    # 1. Configure logging
+    level = logging.INFO if verbose else logging.WARNING
+    logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
+
+    # 2. Seed the RNG (if provided)
+    if seed is not None:
+        random.seed(seed)
+        logging.info(f'Random seed set to {seed}')
+
+    # 3. Reflect schema
+    logging.info(f'Reflecting schema from {db_url!r}')
     metadata = reflect_schema(db_url)
-    logging.info('Found tables: %s', list(metadata.tables.keys()))
-    # TODO: generate data…
+    table_names = list(metadata.tables.keys())
+    logging.info(f'Discovered tables: {table_names}')
+
+    # 4. Compute insertion order
+    try:
+        order = compute_table_order(metadata)
+        logging.info(f'Table insertion order: {order}')
+    except ValueError as e:
+        logging.error(str(e))
+        raise
+
+    # 5. TODO: Generate data & write to out_file
+    logging.info(f'(stub) Would generate {rows} rows per table into {out_file!r}')
+    # e.g. with open(out_file, "w") as f: f.write("-- SQL DUMP HERE\n")
+
+    # Example stub return
+    return order
 
 
 def reflect_schema(db_url: str) -> MetaData:
