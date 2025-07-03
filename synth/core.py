@@ -2,7 +2,57 @@ import logging
 import random
 from collections import defaultdict, deque
 
-from sqlalchemy import MetaData, create_engine
+from faker import Faker
+from sqlalchemy import (
+    Boolean,
+    Column,
+    DateTime,
+    Integer,
+    MetaData,
+    Numeric,
+    String,
+    Text,
+    create_engine,
+)
+
+_faker = Faker()
+
+
+def generate_value(column: Column) -> str:
+    """
+    Return a SQL-literal string for a synthetic value in this column.
+    """
+    col_type = column.type
+
+    # Integer types
+    if isinstance(col_type, Integer):
+        return str(_faker.random_int(min=0, max=10000))
+
+    # Decimal / Numeric
+    if isinstance(col_type, Numeric):
+        # Adjust digits as needed
+        dec = _faker.pydecimal(left_digits=5, right_digits=2, positive=True)
+        return str(dec)
+
+    # Boolean
+    if isinstance(col_type, Boolean):
+        return 'TRUE' if _faker.boolean() else 'FALSE'
+
+    # Date/time
+    if isinstance(col_type, DateTime):
+        dt = _faker.date_time().isoformat(sep=' ')
+        return f"'{dt}'"
+
+    # String / Text
+    if isinstance(col_type, (String, Text)):
+        max_len = getattr(col_type, 'length', 50) or 50
+        text = _faker.text(max_nb_chars=max_len)
+        # Escape single quotes for SQL
+        safe = text.replace("'", "''")
+        return f"'{safe}'"
+
+    # Fallback to a single word
+    return f"'{_faker.word()}'"
 
 
 def generate_dump(
@@ -31,6 +81,18 @@ def generate_dump(
     try:
         order = compute_table_order(metadata)
         logging.info(f'Table insertion order: {order}')
+        for tbl_name in order:
+            table = metadata.tables[tbl_name]
+            # generate a single sample row’s values
+            vals = [generate_value(col) for col in table.columns]
+            cols = [col.name for col in table.columns]
+            logging.info(
+                'Sample INSERT for %s: INSERT INTO %s (%s) VALUES (%s);',
+                tbl_name,
+                tbl_name,
+                ', '.join(cols),
+                ', '.join(vals),
+            )
     except ValueError as e:
         logging.error(str(e))
         raise
