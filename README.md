@@ -1,5 +1,3 @@
-Current
-
 # 🧪 Synthetic Test-Data Generator
 
 > Fast, schema-aware fake-data dumps for Postgres — **single-file binary, GDPR-safe**.
@@ -16,7 +14,6 @@ Current
 - [📦 Quickstart](#-quickstart)
 - [⚙️ CLI options](#️-cli-options)
 - [📜 Licence & EULA](#-licence--eula)
-- [🚀 Roadmap](#-roadmap)
 - [🛠 Development](#-development)
 - [🤝 Contact & Support](#-contact--support)
 
@@ -72,7 +69,7 @@ Source code is **not** open-source at this time; redistribution is prohibited.
 
 ---
 
-## 🛠 Development (private repo)
+## 🛠 Development
 
 ```bash
 git clone git@github.com:npneykov/synth-data-gen.git
