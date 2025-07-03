@@ -8,7 +8,7 @@ init:
 	$(PY) -m venv $(VENV)
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements-dev.txt
-	$(PY) -m pre_commit install
+	$(PY) -m pre-commit install
 
 lint:
 	$(PY) -m ruff check .

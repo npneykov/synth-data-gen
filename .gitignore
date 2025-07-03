@@ -59,8 +59,6 @@ GPG_PRIVATE_*
 # Dev-container build cache
 .devcontainer/.tmp-docker
 docker-compose.override.yml
-# Pre-commit hooks configurations
-.pre-commit-config.yaml
 
 # ─────────────────────────────
 #  Archives
