@@ -2,7 +2,7 @@
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
-        "source.fixAll": "explicit"
+        "source.fixAll": "never"
     },
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
@@ -16,7 +16,7 @@
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "markdown.preview.breaks": true,
-    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
     "python-envs.pythonProjects": [],
     "python.defaultInterpreterPath": "C:\\Users\\Me\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
 }
