@@ -32,6 +32,10 @@ jobs:
 
             - name: Create checksum
               run: sha256sum dist/synthgen > dist/synthgen.sha256
+
+            - name: Debug list contents
+              run: ls -lah dist/
+
             - name: Publish Release
               uses: softprops/action-gh-release@v1
               with:
