@@ -80,7 +80,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref }}
-          update_existing: true
           files: |
             ${{ matrix.pyinstaller_out }}
             ${{ matrix.pyinstaller_out }}.sha256
