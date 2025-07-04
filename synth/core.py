@@ -1,5 +1,6 @@
 import logging
 import random
+import sys
 from collections import defaultdict, deque
 
 from faker import Faker
@@ -78,28 +79,30 @@ def generate_dump(
     logging.info(f'Discovered tables: {table_names}')
 
     # 4. Compute insertion order
-    try:
-        order = compute_table_order(metadata)
-        logging.info(f'Table insertion order: {order}')
-        for tbl_name in order:
-            table = metadata.tables[tbl_name]
-            # generate a single sample row’s values
-            vals = [generate_value(col) for col in table.columns]
-            cols = [col.name for col in table.columns]
-            logging.info(
-                'Sample INSERT for %s: INSERT INTO %s (%s) VALUES (%s);',
-                tbl_name,
-                tbl_name,
-                ', '.join(cols),
-                ', '.join(vals),
-            )
-    except ValueError as e:
-        logging.error(str(e))
-        raise
+    order = compute_table_order(metadata)
+    logging.info('Table insertion order: %s', order)
 
-    # 5. TODO: Generate data & write to out_file
-    logging.info(f'(stub) Would generate {rows} rows per table into {out_file!r}')
-    # e.g. with open(out_file, "w") as f: f.write("-- SQL DUMP HERE\n")
+    # 5. Open output stream
+    if out_file == '-':
+        out = sys.stdout
+    else:
+        out = open(out_file, 'w')
+
+    # 6. Write transaction wrapper
+    out.write('BEGIN;\n')
+    for tbl_name in order:
+        table = metadata.tables[tbl_name]
+        cols = [col.name for col in table.columns]
+        col_list = ', '.join(cols)
+        for _ in range(rows):
+            vals = [generate_value(col) for col in table.columns]
+            val_list = ', '.join(vals)
+            out.write(f'INSERT INTO {tbl_name} ({col_list}) VALUES ({val_list});\n')
+    out.write('COMMIT;\n')
+
+    # 7. Cleanup
+    if out is not sys.stdout:
+        out.close()
 
     # Example stub return
     return order
