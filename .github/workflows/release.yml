@@ -27,13 +27,16 @@ jobs:
               run: |
                   PYTHONPATH=. python -m PyInstaller synth/cli.py \
                   --onefile \
-                  --name synthgen \
+                  --name synthgen --add-data \
                   --add-data "legal/EULA_v1.0.txt:."
 
+            - name: Create checksum
+              run: sha256sum dist/synthgen > dist/synthgen.sha256
             - name: Publish Release
               uses: softprops/action-gh-release@v1
               with:
                   tag_name: ${{ github.ref }}
                   files: |
                       dist/synthgen
+                      dist/synthgen.sha256
                       legal/EULA_v1.0.txt
