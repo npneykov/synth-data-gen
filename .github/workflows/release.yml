@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  build-and-release:
+  build-and-test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -38,19 +38,18 @@ jobs:
 
       - name: Install Dependencies
         run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements-dev.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
 
       - name: Install package in editable mode
         run: pip install -e .
 
       - name: Run Pytest
-        run: |
-            pytest -v -s tests
+        run: pytest -v -s tests
 
       - name: Build binary with PyInstaller
         run: |
-            PYTHONPATH=. python -m PyInstaller synth/cli.py \
+          PYTHONPATH=. python -m PyInstaller synth/cli.py \
             --onefile \
             --name ${{ matrix.artifact_name }} \
             --add-data "${{ matrix.pyinstaller_add_data }}"
@@ -75,17 +74,33 @@ jobs:
           fi
         shell: bash
 
-      - name: Debug list contents
-        run: ls -lah dist/
-        shell: bash
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: |
+            ${{ matrix.pyinstaller_out }}
+            ${{ matrix.pyinstaller_out }}.sha256
+            legal/EULA_v1.0.txt
+
+  release:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: List downloaded files
+        run: ls -R dist
 
       - name: Publish Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref }}
           files: |
-            ${{ matrix.pyinstaller_out }}
-            ${{ matrix.pyinstaller_out }}.sha256
-            legal/EULA_v1.0.txt
+            dist/**/*
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
