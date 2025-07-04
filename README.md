@@ -3,7 +3,7 @@
 > Fast, schema-aware fake-data dumps for Postgres — **single-file binary, GDPR-safe**.
 
 [![Release](https://img.shields.io/github/v/release/npneykov/synth-data-gen?logo=github)](../../releases)
-[![CI](https://img.shields.io/github/actions/workflow/status/npneykov/synth-data-gen/ci.yml?label=CI&logo=githubactions)](../../actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/npneykov/synth-data-gen/release.yml?label=CI&logo=githubactions)](../../actions)
 [![EULA v1.0](https://img.shields.io/badge/EULA-v1.0-blue.svg)](legal/EULA_v1.0.txt)
 
 ---
