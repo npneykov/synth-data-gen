@@ -27,7 +27,7 @@ jobs:
               run: |
                   PYTHONPATH=. python -m PyInstaller synth/cli.py \
                   --onefile \
-                  --name synthgen --add-data \
+                  --name synthgen \
                   --add-data "legal/EULA_v1.0.txt:."
 
             - name: Create checksum
