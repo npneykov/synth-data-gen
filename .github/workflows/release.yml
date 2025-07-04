@@ -58,7 +58,10 @@ jobs:
 
       - name: Rename output for consistency
         run: |
-          mv "dist/${{ matrix.artifact_name }}" "${{ matrix.pyinstaller_out }}"
+          out_basename="$(basename "${{ matrix.pyinstaller_out }}")"
+          if [[ "${{ matrix.artifact_name }}" != "$out_basename" ]]; then
+            mv "dist/${{ matrix.artifact_name }}" "${{ matrix.pyinstaller_out }}"
+          fi
         shell: bash
 
       - name: Create checksum
