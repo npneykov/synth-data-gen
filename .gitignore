@@ -34,8 +34,9 @@ dist/
 !.vscode/tasks.json
 !.vscode/launch.json
 
-# Include test_db folder
+# Include db folder and files
 test_db/
+*.sql
 
 # JetBrains / others
 .idea/
