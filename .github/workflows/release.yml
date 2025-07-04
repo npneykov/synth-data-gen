@@ -22,9 +22,9 @@ jobs:
             artifact_name: synthgen-win.exe
             pyinstaller_out: dist/synthgen-win.exe
             pyinstaller_add_data: "legal/EULA_v1.0.txt;."
-          - os: macos-latest
-            artifact_name: synthgen-macos
-            pyinstaller_out: dist/synthgen-macos
+          - os: macOS-latest
+            artifact_name: synthgen-macOS
+            pyinstaller_out: dist/synthgen-macOS
             pyinstaller_add_data: "legal/EULA_v1.0.txt:."
 
     steps:
@@ -77,35 +77,35 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact_name }}
-          path: |
-            ${{ matrix.pyinstaller_out }}
-            ${{ matrix.pyinstaller_out }}.sha256
-            legal/EULA_v1.0.txt
+            name: ${{ matrix.artifact_name }}
+            path: |
+                ${{ matrix.pyinstaller_out }}
+                ${{ matrix.pyinstaller_out }}.sha256
+                legal/EULA_v1.0.txt
 
   release:
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: dist
+        - uses: actions/checkout@v4
+        - uses: actions/download-artifact@v4
+          with:
+            path: dist/
 
-      - name: List downloaded files
-        run: ls -R dist
+        - name: List downloaded files
+          run: ls -R dist
 
-      - name: Publish Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.ref }}
-          files: |
-             dist/synthgen-linux
-             dist/synthgen-linux.sha256
-             dist/synthgen-win.exe
-             dist/synthgen-win.exe.sha256
-             dist/synthgen-macos
-             dist/synthgen-macos.sha256
-             dist/EULA_v1.0.txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Publish Release
+          uses: softprops/action-gh-release@v1
+          with:
+            tag_name: ${{ github.ref }}
+            files: |
+                    dist/synthgen-linux
+                    dist/synthgen-linux.sha256
+                    dist/synthgen-win.exe
+                    dist/synthgen-win.exe.sha256
+                    dist/synthgen-macOS
+                    dist/synthgen-macOS.sha256
+                    dist/EULA_v1.0.txt
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
