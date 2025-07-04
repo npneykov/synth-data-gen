@@ -100,7 +100,12 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           files: |
-            dist/**/*
-
+             dist/synthgen-linux/synthgen-linux
+             dist/synthgen-linux/synthgen-linux.sha256
+             dist/synthgen-win.exe/synthgen-win.exe
+             dist/synthgen-win.exe/synthgen-win.exe.sha256
+             dist/synthgen-macos/synthgen-macos
+             dist/synthgen-macos/synthgen-macos.sha256
+             dist/synthgen-linux/EULA_v1.0.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
