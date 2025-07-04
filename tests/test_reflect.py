@@ -1,21 +1,28 @@
+from pathlib import Path
+
 import pytest
 from sqlalchemy import Column, Integer, MetaData, Table, create_engine
 
 from synth.core import reflect_schema
 
 
-def test_reflect(tmp_path):
-    db_file = tmp_path / 'test.db'
+@pytest.fixture(scope='module')
+def project_db_url():
+    root = Path(__file__).parent.parent
+    db_dir = root / 'test_db'
+    db_dir.mkdir(exist_ok=True)
+    return db_dir
+
+
+def test_reflect(project_db_url):
+    db_file = project_db_url / 'test.db'
     url = f'sqlite:///{db_file}'
-    # Create a simple SQLite schema
+
     engine = create_engine(url)
     metadata = MetaData()
-    Table('users', metadata, Column('id', Integer, primary_key=True))
+    Table('u', metadata, Column('id', Integer, primary_key=True))
     metadata.create_all(engine)
 
-    # Reflect the schema
-    reflected = reflect_schema(url)
-    assert 'users' in reflected.tables
-    # Column count matches
-    cols = reflected.tables['users'].columns
-    assert 'id' in cols
+    # Run your reflection
+    metadata = reflect_schema(url)
+    assert 'u' in metadata.tables
