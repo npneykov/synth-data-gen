@@ -35,7 +35,7 @@ jobs:
               with:
                   tag_name: ${{ github.ref }}
                   files: |
-                      dist/synthgen.exe
+                      dist/synthgen
                       legal/EULA_v1.0.txt
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
