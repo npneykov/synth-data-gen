@@ -63,11 +63,13 @@ jobs:
 
       - name: Create checksum
         run: |
-            if [[ "${{ runner.os }}" == "Windows" ]]; then
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
             certutil -hashfile "${{ matrix.pyinstaller_out }}" SHA256 > "${{ matrix.pyinstaller_out }}.sha256"
-            else
-                sha256sum "${{ matrix.pyinstaller_out }}" > "${{ matrix.pyinstaller_out }}.sha256"
-            fi
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+            shasum -a 256 "${{ matrix.pyinstaller_out }}" > "${{ matrix.pyinstaller_out }}.sha256"
+          else
+            sha256sum "${{ matrix.pyinstaller_out }}" > "${{ matrix.pyinstaller_out }}.sha256"
+          fi
         shell: bash
 
       - name: Debug list contents
