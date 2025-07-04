@@ -41,6 +41,5 @@ jobs:
               with:
                   tag_name: ${{ github.ref }}
                   files: |
-                        dist/synthgen
-                        dist/synthgen.sha256
+                        dist/**
                         legal/EULA_v1.0.txt
