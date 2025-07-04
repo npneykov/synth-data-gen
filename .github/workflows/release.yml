@@ -16,19 +16,19 @@ jobs:
             - name: Set up Python
               uses: actions/setup-python@v4
               with:
-                  python-version: '3.12'  # Specify the Python version
+                    python-version: '3.12'  # Specify the Python version
 
             - name: Install Dependencies
               run: |
-                  python -m pip install --upgrade pip
-                  pip install -r requirements-dev.txt
+                    python -m pip install --upgrade pip
+                    pip install -r requirements-dev.txt
 
             - name: Build binary
               run: |
-                  PYTHONPATH=. python -m PyInstaller synth/cli.py \
-                  --onefile \
-                  --name synthgen \
-                  --add-data "legal/EULA_v1.0.txt:."
+                    PYTHONPATH=. python -m PyInstaller synth/cli.py \
+                    --onefile \
+                    --name synthgen \
+                    --add-data "legal/EULA_v1.0.txt:."
 
             - name: Create checksum
               run: sha256sum dist/synthgen > dist/synthgen.sha256
@@ -41,6 +41,6 @@ jobs:
               with:
                   tag_name: ${{ github.ref }}
                   files: |
-                      dist/synthgen
-                      dist/synthgen.sha256
-                      legal/EULA_v1.0.txt
+                        dist/synthgen
+                        dist/synthgen.sha256
+                        legal/EULA_v1.0.txt
