@@ -87,25 +87,43 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v4
-        - uses: actions/download-artifact@v4
+        - name: Checkout Code
+          uses: actions/checkout@v4
           with:
-            path: dist/
+            fetch-depth: 0
+
+        - name: Download Linux artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: dist-linux-latest
+            path: dist/linux
+
+        - name: Download macOS artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: dist-macOS-latest
+            path: dist/macOS
+
+        - name: Download Windows artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: dist-windows-latest
+            path: dist/windows
 
         - name: List downloaded files
           run: ls -R dist
 
-        - name: Publish Release
+        - name: Publish Release Assets
           uses: softprops/action-gh-release@v1
           with:
             tag_name: ${{ github.ref }}
             files: |
-                    dist/synthgen-linux
-                    dist/synthgen-linux.sha256
-                    dist/synthgen-win.exe
-                    dist/synthgen-win.exe.sha256
-                    dist/synthgen-macOS
-                    dist/synthgen-macOS.sha256
-                    dist/EULA_v1.0.txt
+                    dist/linux/synthgen
+                    dist/linux/synthgen.sha256
+                    dist/macOS/synthgen
+                    dist/macOS/synthgen.sha256
+                    dist/windows/synthgen.exe
+                    dist/windows/synthgen.exe.sha256
+                    legal/EULA_v1.0.txt
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
