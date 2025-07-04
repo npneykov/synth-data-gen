@@ -34,6 +34,9 @@ dist/
 !.vscode/tasks.json
 !.vscode/launch.json
 
+# Include test_db folder
+test_db/
+
 # JetBrains / others
 .idea/
 *.code-workspace     # personal VS Code workspaces
