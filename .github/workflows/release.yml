@@ -1,45 +1,83 @@
 name: Release
 
 on:
-    push:
-        tags:
-            - 'v*.*.*'  # Match semantic versioning tags like v1.0.0
+  push:
+    tags:
+      - 'v*.*.*'  # Match semantic versioning tags like v1.0.0
+
+permissions:
+  contents: write
 
 jobs:
-    build-and-release:
-        runs-on: ubuntu-latest
+  build-and-release:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: synthgen-linux
+            pyinstaller_out: dist/synthgen-linux
+            pyinstaller_add_data: "legal/EULA_v1.0.txt:."
+          - os: windows-latest
+            artifact_name: synthgen-win.exe
+            pyinstaller_out: dist/synthgen-win.exe
+            pyinstaller_add_data: "legal/EULA_v1.0.txt;."
+          - os: macos-latest
+            artifact_name: synthgen-macos
+            pyinstaller_out: dist/synthgen-macos
+            pyinstaller_add_data: "legal/EULA_v1.0.txt:."
 
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                    python-version: '3.12'  # Specify the Python version
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
 
-            - name: Install Dependencies
-              run: |
-                    python -m pip install --upgrade pip
-                    pip install -r requirements-dev.txt
+      - name: Install Dependencies
+        run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements-dev.txt
 
-            - name: Build binary
-              run: |
-                    PYTHONPATH=. python -m PyInstaller synth/cli.py \
-                    --onefile \
-                    --name synthgen \
-                    --add-data "legal/EULA_v1.0.txt:."
+      - name: Run Pytest
+        run: |
+            pytest -v -s tests
 
-            - name: Create checksum
-              run: sha256sum dist/synthgen > dist/synthgen.sha256
+      - name: Build binary with PyInstaller
+        run: |
+            PYTHONPATH=. python -m PyInstaller synth/cli.py \
+            --onefile \
+            --name ${{ matrix.artifact_name }} \
+            --add-data "${{ matrix.pyinstaller_add_data }}"
+        shell: bash
 
-            - name: Debug list contents
-              run: ls -lah dist/
+      - name: Rename output for consistency
+        run: |
+          mv "dist/${{ matrix.artifact_name }}" "${{ matrix.pyinstaller_out }}"
+        shell: bash
 
-            - name: Publish Release
-              uses: softprops/action-gh-release@v1
-              with:
-                  tag_name: ${{ github.ref }}
-                  files: |
-                        dist/**
-                        legal/EULA_v1.0.txt
+      - name: Create checksum
+        run: |
+            if [[ "${{ runner.os }}" == "Windows" ]]; then
+            certutil -hashfile "${{ matrix.pyinstaller_out }}" SHA256 > "${{ matrix.pyinstaller_out }}.sha256"
+            else
+                sha256sum "${{ matrix.pyinstaller_out }}" > "${{ matrix.pyinstaller_out }}.sha256"
+            fi
+        shell: bash
+
+      - name: Debug list contents
+        run: ls -lah dist/
+        shell: bash
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          files: |
+            ${{ matrix.pyinstaller_out }}
+            ${{ matrix.pyinstaller_out }}.sha256
+            legal/EULA_v1.0.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
