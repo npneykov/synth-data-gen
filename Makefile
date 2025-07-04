@@ -22,8 +22,11 @@ test:
 	$(PY) -m pytest -q
 
 build:
-	$(PY) -m pip install pyinstaller     # only if not yet installed
-	$(PY) -m PyInstaller synth/cli.py --onefile --name synthgen
+	PYTHONPATH=. \
+	python -m PyInstaller synth/cli.py \
+	--onefile \
+	--name synthgen \
+	--add-data "legal/EULA_v1.0.txt:."
 
 clean:
 	$(PY) - <<'PY'
